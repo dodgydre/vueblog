@@ -8,8 +8,8 @@ module.exports = {
   dev: {
 
     // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/vueblog/',
+    assetsSubDirectory: 'vueblog/static',
+    assetsPublicPath: '/',
     proxyTable: {},
 
     // Various Dev Server settings
