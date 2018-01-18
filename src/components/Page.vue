@@ -6,8 +6,8 @@
     <div v-else-if="error">
       error: {{ error.statusCode }} - {{ error.message }}
     </div>
-    <div v-else class="content" v-html="$store.state.currentPage.content">
-    </div>
+    <main v-else class="content" v-html="$store.state.currentPage.content">
+    </main>
   </div>
 </template>
 
