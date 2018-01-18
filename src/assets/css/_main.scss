@@ -1,0 +1,137 @@
+@import 'settings';
+@import 'grid';
+@import 'highlightjs';
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: $color-background;
+}
+
+body {
+    font-family: $font-family;
+    font-size: $font-size;
+    -webkit-font-smoothing: antialiased;
+    padding: $size-unit * 5;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: $color-font;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: $size-unit;
+}
+
+// Font sizes for headings:
+
+@function getHeadingFontSize($minFontSize, $maxFontSize, $heading) {
+    $m: ($minFontSize - $maxFontSize) / (6 - 1);
+    $c: ($maxFontSize - $m);
+    @return $m * $heading + $c;
+}
+
+@for $i from 1 through 6 {
+    h#{$i} {
+        font-weight: normal;
+        margin-top: 0;
+        position: relative;
+        z-index: -1;
+        color: $color-heading-hash;
+
+        font-size: getHeadingFontSize(14px, 30px, $i);
+        &::before,
+        &::after {
+            content: str-slice("~~~~~~", (8-$i));
+        }
+        a { text-decoration: none }
+    }
+}
+
+main {
+    h2,
+    h3,
+    h4 {
+        margin: $size-unit 0;
+        border-bottom: 1px solid $color-border;
+        padding-right: $size-unit;
+        padding-bottom: $size-unit/2;
+    }
+
+    ul,
+    ol {
+        padding-left: $size-unit;
+
+        li {
+            margin-bottom: $size-unit;
+        }
+    }
+}
+
+a,
+a:hover,
+a:visited,
+a:active {
+    color: $color-font;
+    text-decoration: none;
+
+    main & {
+        background-color: $color-link-background;
+    }
+}
+
+main {
+    max-width: $size-unit * 50;
+    flex: 1;
+    line-height: 1.5 * $size-unit;
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: scroll;
+    }
+}
+
+time {
+    opacity: 0.5;
+}
+
+ul {
+    margin-top: 0;
+}
+
+pre {
+    background-color: $color-code;
+    overflow-x: scroll;
+    padding: $size-unit;
+}
+
+code {
+    font-family: $font-family-code;
+}
+
+h1, h2, p, li {
+    code {
+        background: $color-code;
+    }
+}
+
+table {
+    background: $color-code;
+
+    th {
+        text-align: left;
+    }
+
+    tr td,
+    tr th {
+        border-bottom: 1px solid $color-border;
+        padding: $size-unit $size-unit/2;
+    }
+}

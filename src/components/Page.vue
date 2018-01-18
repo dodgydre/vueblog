@@ -1,32 +1,59 @@
 <template>
   <div>
-    {{ $route.params.page_id }}
-    <div v-if="data">
-      {{ data }}
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div v-else-if="error">
+      error: {{ error.statusCode }} - {{ error.message }}
+    </div>
+    <div v-else class="content" v-html="$store.state.currentPage.content">
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
-const blogConfig = require('./blog.config.js')
+import { mapState } from 'vuex'
+import hljs from 'highlight.js/lib/highlight'
+
+['javascript', 'css', 'xml', 'php'].forEach((langName) => {
+  const langModule = require(`highlight.js/lib/languages/${langName}`)
+  hljs.registerLanguage(langName, langModule)
+})
 
 export default {
   data () {
     return {
-      data: null
+      error: null,
+      loading: false
     }
   },
-  mounted () {
-    window.axios.get('https://api.github.com/users/dodgydre/gists')
-      .then((data) => {
-        this.data = data
-      })
+  created () {
+    this.fetchData()
   },
   methods: {
-    fetchPage () {
-      let url = `http://api.github.com/gists/${blogConfig.gistId}`
-      let
+    async fetchData () {
+      this.loading = true
+      try {
+        await this.$store.dispatch('FETCH_PAGE', this.$route.params.page_id)
+      } catch (e) {
+        this.error = { statusCode: 404, message: e.message }
+      } finally {
+        this.loading = false
+      }
+    },
+    highlight: function () {
+      console.log('wrong')
+    }
+  },
+  computed: {
+    ...mapState(['currentPage'])
+  },
+  updated () {
+    const preTags = [...document.querySelectorAll('pre')]
+    if (typeof hljs === 'object') {
+      preTags.forEach(el => {
+        hljs.highlightBlock(el)
+      })
     }
   }
 }

@@ -65,6 +65,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
+    // ,
+    // new webpack.ContextReplacementPlugin(
+    //   /highlight\.js\/lib\/languages$/,
+    //   new RegExp(`^./(${['javascript', 'css', 'html', 'php'].join('|')})$`)
+    // )
   ]
 })
 
