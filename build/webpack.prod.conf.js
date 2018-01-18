@@ -123,13 +123,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
 
     // copy custom 404 page
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../404.html'),
-        to: config.build.e404,
-        ignore: ['.*']
-      }
-    ]),
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: path.resolve(__dirname, '../404.html'),
+    //     to: config.build.e404,
+    //     ignore: ['.*']
+    //   }
+    // ]),
 
     new webpack.ContextReplacementPlugin(
       /highlight\.js\/lib\/languages$/,
