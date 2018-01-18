@@ -30,7 +30,7 @@ export default {
     const id = raw.filename.split(split)[0]
     content = content.replace(/<pre>/g, '<pre v-highlightjs>')
 
-    const firstSentence = content // .slice(3).split('.')[0] + '.'
+    const firstSentence = content.slice(3).split('.')[0] + '.'
 
     return {
       id,

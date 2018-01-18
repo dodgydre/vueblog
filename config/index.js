@@ -47,6 +47,9 @@ module.exports = {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
+    // Template for 404.html
+    e404: path.resolve(__dirname, '../dist/404.html'),
+
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',

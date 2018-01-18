@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       error: null,
-      loading: false
+      loading: true
     }
   },
   created () {
@@ -54,6 +54,16 @@ export default {
       preTags.forEach(el => {
         hljs.highlightBlock(el)
       })
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.loading ? 'Loading ...' : this.$store.state.currentPage.meta.title,
+      meta: this.loading ? [] : [
+        { hid: 'og:title', name: 'og:title', content: this.currentPage.meta.title },
+        { hid: 'og:description', name: 'og:description', content: this.currentPage.meta.description || this.currentPage.firstSentence },
+        { hid: 'description', name: 'description', content: this.currentPage.meta.description || this.currentPage.firstSentence }
+      ]
     }
   }
 }
