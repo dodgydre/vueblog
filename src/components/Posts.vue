@@ -3,9 +3,11 @@
     <div v-if="loading"></div>
 
     <div v-else v-for="post in posts" :key="post.id">
-      <h1 v-html="post.id"></h1>
-      <div class="date" v-html="post.meta.date"></div>
-      <div v-html="post.firstSentence"></div>
+      <router-link :to="{ path: 'posts/' + post.id }">
+        <h1 v-html="post.meta.title"></h1>
+        <div class="date">{{ post.meta.date | toShortDate }}</div>
+        <div v-html="post.firstSentence"></div>
+      </router-link>
     </div>
   </main>
 </template>

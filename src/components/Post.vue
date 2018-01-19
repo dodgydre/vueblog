@@ -6,7 +6,12 @@
     <div v-else-if="error">
       error: {{ error.statusCode }} - {{ error.message }}
     </div>
-    <div v-else class="content" v-html="$store.state.currentPage.content">
+    <div v-else class="content">
+      <h1>{{ currentPost.meta.title }}</h1>
+      <p>
+        <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDateDate }}</time>
+      </p>
+      <div v-html="currentPost.content"></div>
     </div>
   </main>
 </template>
@@ -38,7 +43,7 @@ export default {
     async fetchData () {
       this.loading = true
       try {
-        await this.$store.dispatch('FETCH_PAGE', this.$route.params.page_id)
+        await this.$store.dispatch('FETCH_POST', this.$route.params.post_id)
       } catch (e) {
         this.error = { statusCode: 404, message: e.message }
       } finally {
@@ -47,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentPage'])
+    ...mapState(['currentPost'])
   },
   updated () {
     const preTags = [...document.querySelectorAll('pre')]
@@ -59,11 +64,11 @@ export default {
   },
   metaInfo () {
     return {
-      title: this.loading ? 'Loading ...' : this.$store.state.currentPage.meta.title,
+      title: this.loading ? 'Loading ...' : this.$store.state.currentPost.meta.title,
       meta: this.loading ? [] : [
-        { hid: 'og:title', name: 'og:title', content: this.currentPage.meta.title },
-        { hid: 'og:description', name: 'og:description', content: this.currentPage.meta.description || this.currentPage.firstSentence },
-        { hid: 'description', name: 'description', content: this.currentPage.meta.description || this.currentPage.firstSentence }
+        { hid: 'og:title', name: 'og:title', content: this.currentPost.meta.title },
+        { hid: 'og:description', name: 'og:description', content: this.currentPost.meta.description || this.currentPost.firstSentence },
+        { hid: 'description', name: 'description', content: this.currentPost.meta.description || this.currentPost.firstSentence }
       ]
     }
   }

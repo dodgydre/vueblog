@@ -54,7 +54,11 @@ export default {
 
   parsePages (files) {
     return files.forEach(file => {
-      file.map(raw => this.parseItem(raw, '.page'))
+      file.map(raw => this.parseItem(raw, '.page.md'))
     }).sort((current, other) => parseInt(other.meta.order) < parseInt(current.meta.order))
+  },
+
+  parsePost (rawHtml) {
+    return this.parseItem(rawHtml, '.post.md')
   }
 }
