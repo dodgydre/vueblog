@@ -43,5 +43,18 @@ export default {
 
   parsePage (rawHtml) {
     return this.parseItem(rawHtml, '.page.md')
+  },
+
+  parsePosts (files) {
+    return files
+      .filter(file => file.filename.includes('post.md'))
+      .map(raw => this.parseItem(raw, '.post'))
+      .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date))
+  },
+
+  parsePages (files) {
+    return files.forEach(file => {
+      file.map(raw => this.parseItem(raw, '.page'))
+    }).sort((current, other) => parseInt(other.meta.order) < parseInt(current.meta.order))
   }
 }

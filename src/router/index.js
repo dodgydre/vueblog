@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/components/Home'
 import Page from '@/components/Page'
 
 Vue.use(Router)
@@ -13,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
     },
     {
       path: '/:page_id',

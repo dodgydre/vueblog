@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <main>
     <div class="loading" v-if="loading">
       Loading...
     </div>
     <div v-else-if="error">
       error: {{ error.statusCode }} - {{ error.message }}
     </div>
-    <main v-else class="content" v-html="$store.state.currentPage.content">
-    </main>
-  </div>
+    <div v-else class="content" v-html="$store.state.currentPage.content">
+    </div>
+  </main>
 </template>
 
 <script>
