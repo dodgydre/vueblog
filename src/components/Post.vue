@@ -9,7 +9,7 @@
     <div v-else class="content">
       <h1>{{ currentPost.meta.title }}</h1>
       <p>
-        <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDateDate }}</time>
+        <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDate }}</time>
       </p>
       <div v-html="currentPost.content"></div>
     </div>
