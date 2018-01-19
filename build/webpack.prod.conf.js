@@ -131,6 +131,15 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     ]),
 
+    // copy favicon
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../favicon.ico'),
+        to: config.build.favicon,
+        ignore: ['.*']
+      }
+    ]),
+
     new webpack.ContextReplacementPlugin(
       /highlight\.js\/lib\/languages$/,
       new RegExp(`^./(${['javascript', 'css', 'xml', 'php'].join('|')})$`)

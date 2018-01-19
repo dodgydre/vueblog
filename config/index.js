@@ -49,6 +49,7 @@ module.exports = {
 
     // Template for 404.html
     e404: path.resolve(__dirname, '../dist/404.html'),
+    favicon: path.resolve(__dirname, '../dist/favicon.ico'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
