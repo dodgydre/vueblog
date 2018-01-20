@@ -47,7 +47,7 @@ export default {
     return {
       title: 'Home',
       meta: [
-        { hid: 'og:title', name: 'og:title', content: 'Home' },
+        { hid: 'og:title', name: 'og:title', content: 'Vuejs Blog Home' },
         { hid: 'og:description', name: 'og:description', content: 'A simple blog written in vue.js using github gists.' },
         { hid: 'description', name: 'description', content: 'A simple blog written in vue.js using github gists.' }
       ]

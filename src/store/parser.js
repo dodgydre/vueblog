@@ -3,27 +3,31 @@ const converter = new showdown.Converter({
   tables: true
 })
 
-let Parser
-if (typeof DOMParser === 'undefined') {
-  Parser = require('xmldom').DOMParser
-} else {
-  Parser = DOMParser
-}
+// let Parser
+// if (typeof DOMParser === 'undefined') {
+//   Parser = require('xmldom').DOMParser
+// } else {
+//   Parser = DOMParser
+// }
 
-const makeDOM = (html) => {
-  return new Parser().parseFromString(html, 'text/html')
-}
+// const makeDOM = (html) => {
+//   return new Parser().parseFromString(html, 'text/html')
+// }
 
 export default {
   parseItem (raw, split) {
-    let content = converter.makeHtml(raw.content)
-    const doc = makeDOM(content)
+    // meta section
+    let meta = {}
+    raw.content
+      .split(/---\n/)[1]
+      .trim()
+      .split(/\n/)
+      .forEach((item, index, object) => {
+        meta[item.split(':')[0]] = item.split(':')[1].trim()
+      })
 
-    const meta = {}
-    const metaNodes = Array.from(doc.getElementsByTagName('meta'))
-    metaNodes.forEach(node => {
-      meta[node.getAttribute('name')] = node.getAttribute('content')
-    })
+    // content section
+    let content = converter.makeHtml(raw.content.split(/---\n/)[2])
 
     const segment = raw.filename.split(split)[0]
     const path = `/post/${segment}`
@@ -50,6 +54,7 @@ export default {
       .filter(file => file.filename.includes('post.md'))
       .map(raw => this.parseItem(raw, '.post'))
       .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date))
+      .filter(file => file.meta.published === 'true')
   },
 
   parsePages (files) {

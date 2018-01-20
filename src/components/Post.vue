@@ -6,6 +6,9 @@
     <div v-else-if="error">
       error: {{ error.statusCode }} - {{ error.message }}
     </div>
+    <div v-else-if="currentPost.meta.published === 'false'">
+      Not visible.
+    </div>
     <div v-else class="content">
       <h1>{{ currentPost.meta.title }}</h1>
       <p>
