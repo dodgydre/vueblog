@@ -1,0 +1,22 @@
+// Variables
+$size-unit: 1rem;
+$font-size: 14px !default;
+$font-family: 'Roboto', sans-serif !default;
+$font-family-code: 'Fira Mono', monospace !default;
+
+// Colors
+$color-light: white !default;
+$color-gray: #ccc !default;
+$color-light-gray: #f7f7f7 !default;
+$color-dark-gray: #9a9a9a !default;
+$color-dark: #222 !default;
+$color-blue: #a3ffff !default;
+$color-dark-blue: darken($color-blue, 50%);
+
+$color-background: $color-light;
+$color-font: $color-dark;
+$color-border: $color-gray;
+$color-code: $color-light-gray;
+$color-heading-hash: $color-dark-gray;
+$color-link-background: $color-blue;
+$color-active-nav: $color-dark-blue;
