@@ -1,4 +1,4 @@
-@import 'normalize.css';
+@import 'normalize';
 @import 'settings';
 @import 'grid';
 @import 'highlightjs';
@@ -50,9 +50,9 @@ p {
 
         font-size: getHeadingFontSize(14px, 30px, $i);
         &::before,
-        &::after {
-            content: str-slice("~~~~~~", (8-$i));
-        }
+        // &::after {
+        //     content: str-slice("~~~~~~", (8-$i));
+        // }
         a { text-decoration: none }
     }
 }
@@ -72,9 +72,9 @@ main {
     ol {
         padding-left: $size-unit;
 
-        li {
-            margin-bottom: $size-unit;
-        }
+        // li {
+        //     margin-bottom: $size-unit;
+        // }
     }
 
     .date {

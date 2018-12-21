@@ -6,10 +6,10 @@
         class="nav-link"
       >
         <span v-if="isCurrentPage('posts')" class="current">
-          HOME
+          POSTS
         </span>
         <span v-else>
-          HOME
+          POSTS
         </span>
       </router-link>
       <router-link

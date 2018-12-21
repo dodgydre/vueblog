@@ -38,6 +38,7 @@ export default {
     async fetchData () {
       this.loading = true
       try {
+        console.log(this.$route.params.page_id)
         await this.$store.dispatch('FETCH_PAGE', this.$route.params.page_id)
       } catch (e) {
         this.error = { statusCode: 404, message: e.message }

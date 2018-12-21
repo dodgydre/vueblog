@@ -40,13 +40,11 @@ export default {
     }
 
     const fileNames = Object.keys(context.state.gist.files)
-
     const currentFile = fileNames.find(name => name === `${id}.page.md`)
     if (!currentFile) {
       throw new Error('Page not found')
     }
     const page = context.state.gist.files[currentFile]
-
     context.commit('SET_CURRENT_PAGE', page)
   },
 

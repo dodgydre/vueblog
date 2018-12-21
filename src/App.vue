@@ -1,13 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav-bar></nav-bar>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-  @import '@/scss/base.scss';
+<script>
+import NavBar from './components/NavBar'
+
+export default {
+  name: 'App',
+  components: { NavBar },
+  metaInfo: {
+    title: 'Default Title',
+    titleTemplate: '%s'
+  }
+}
+</script>
+
+<style lang="sass">
+@import './assets/css/main'
+
 </style>

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
-import Posts from '@/components/Posts'
-import Page from '@/components/Page'
-import Post from '@/components/Post'
+import Posts from '../components/Posts'
+import Page from '../components/Page'
+import Post from '../components/Post'
 
 Vue.use(Router)
 Vue.use(Meta)

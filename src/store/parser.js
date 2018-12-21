@@ -20,8 +20,9 @@ export default {
   parseItem (raw, split) {
     // meta section
     let meta = {}
+    console.log(raw.content)
     raw.content
-      .split(/---\n/)[1]
+      .split(/\+\+\+\n/)[1]
       .trim()
       .split(/\n/)
       .forEach((item, index, object) => {
@@ -29,7 +30,7 @@ export default {
       })
 
     // content section
-    let content = converter.makeHtml(raw.content.split(/---\n/)[2])
+    let content = converter.makeHtml(raw.content.split(/\+\+\+\n/)[2])
 
     const segment = raw.filename.split(split)[0]
     const path = `/post/${segment}`
