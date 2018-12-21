@@ -3,7 +3,7 @@ import { EventBus } from '../event-bus.js'
 
 export default {
   SET_GIST (state, gist) {
-    console.log(gist)
+    //console.log(gist)
     state.gist = gist
   },
 

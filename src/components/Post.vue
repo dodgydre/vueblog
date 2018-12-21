@@ -23,11 +23,6 @@
 import { mapState } from 'vuex'
 import hljs from 'highlight.js/lib/highlight'
 
-['javascript', 'css', 'xml', 'php'].forEach((langName) => {
-  const langModule = require(`highlight.js/lib/languages/${langName}`)
-  hljs.registerLanguage(langName, langModule)
-})
-
 export default {
   data () {
     return {
@@ -41,6 +36,12 @@ export default {
   watch: {
     // call again the method if the route changes
     '$route': 'fetchData'
+  },
+  mounted() {
+    ['javascript', 'css', 'xml', 'php'].forEach((langName) => {
+      const langModule = require(`highlight.js/lib/languages/${langName}`)
+      hljs.registerLanguage(langName, langModule)
+    })
   },
   methods: {
     async fetchData () {
@@ -64,6 +65,21 @@ export default {
         hljs.highlightBlock(el)
       })
     }
+    // UPDATE WITH CORS?
+    const tweets = [...document.getElementsByClassName('media--tweet')]
+    tweets.forEach((tweet) => {
+      let url = tweet.innerHTML
+      let id = tweet.getAttribute('id')
+      let el = document.getElementById(`embed_${id}`)
+
+      if(url) {
+        axios.get(`https://api.twitter.com/1/statuses/oembed.json?url=${url}`)
+            .then(response => {
+              el.innerHTML = response.data.html
+            })
+      }
+
+    })
   },
   metaInfo () {
     return {
