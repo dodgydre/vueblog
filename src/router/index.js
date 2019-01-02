@@ -9,7 +9,7 @@ Vue.use(Router)
 Vue.use(Meta)
 
 export default new Router({
-  mode: 'history',
+  //mode: 'history',
   base: process.env.NODE_ENV === 'development' ? '/' : '/vueblog/',
   routes: [
     { path: '/posts', redirect: '/' },
