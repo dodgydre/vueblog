@@ -15,6 +15,7 @@
         <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDate }}</time>
       </p>
       <div v-html="currentPost.content"></div>
+      <div id="temp"></div>
     </div>
   </main>
 </template>
@@ -65,20 +66,18 @@ export default {
         hljs.highlightBlock(el)
       })
     }
-    // UPDATE WITH CORS?
-    const tweets = [...document.getElementsByClassName('media--tweet')]
-    tweets.forEach((tweet) => {
-      let url = tweet.innerHTML
-      let id = tweet.getAttribute('id')
-      let el = document.getElementById(`embed_${id}`)
-
-      if(url) {
-        axios.get(`https://api.twitter.com/1/statuses/oembed.json?url=${url}`)
-            .then(response => {
-              el.innerHTML = response.data.html
-            })
-      }
-
+    //window.twttr.widgets.load()
+    
+    const tweets = [...document.getElementsByClassName('tweet')]
+    tweets.forEach(tweet => {
+      let identifier = tweet.id
+      window.twttr.widgets.createTweet(
+        identifier,
+        document.getElementById(`embed_${identifier}`),
+        // {
+        //   theme: 'dark'
+        // }
+      )
     })
   },
   metaInfo () {

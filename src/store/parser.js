@@ -1,6 +1,7 @@
 import showdown from 'showdown'
 
 // (https://twitter.com/8bitfootball/status/1008450650936659974)
+
 showdown.extension("twitter", function() {
   'use strict';
   return [
@@ -13,7 +14,25 @@ showdown.extension("twitter", function() {
           let identifier = content.match(/status\/([0-9]*)/)[1];
           
           //let embedUrl = `https://publish.twitter.com/oembed?url=${identifier}`;
-          return `<div class="media--tweet" id="${identifier}" style="display:none">${replacedContent}</div><div class="media media--embed" id="embed_${identifier}"></div>`;
+          return `<div class="tweet" id="${identifier}" style="display:none">${replacedContent}</div><div class="media media--embed" id="embed_${identifier}"></div>`;
+          
+        });
+        return text;
+      }
+    }
+  ]
+});
+
+showdown.extension("youtube", function() {
+  'use strict';
+  return [
+    {
+      type: 'lang',
+      filter: function(text, converter, options) {
+        var mainRegex = new RegExp("(@youtube\(.*\))", "gm");
+        text = text.replace(mainRegex, function(match, content) {
+          let identifier = content.match(/\(([A-Za-z0-9_\-]*)/)[1]
+          return `<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${identifier}?autoplay=1" frameborder="0"></iframe>`;
         });
         return text;
       }
@@ -26,7 +45,7 @@ showdown.extension("twitter", function() {
 const converter = new showdown.Converter({
   tables: true,
   parseImgDimensions: true,
-  extensions: ['twitter'],
+  extensions: ['youtube', 'twitter'],
 })
 
 export default {
