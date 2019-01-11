@@ -66,7 +66,6 @@ export default {
         hljs.highlightBlock(el)
       })
     }
-    //window.twttr.widgets.load()
     
     const tweets = [...document.getElementsByClassName('tweet')]
     tweets.forEach(tweet => {
@@ -74,15 +73,12 @@ export default {
       window.twttr.widgets.createTweet(
         identifier,
         document.getElementById(`embed_${identifier}`),
-        // {
-        //   theme: 'dark'
-        // }
       )
     })
   },
   metaInfo () {
     return {
-      title: this.loading ? 'Loading ...' : this.$store.state.currentPost.meta.title,
+      title: this.loading ? 'Loading ...' : 'Andreas Georghiou - ' + this.$store.state.currentPost.meta.title,
       meta: this.loading ? [] : [
         { hid: 'og:title', name: 'og:title', content: this.currentPost.meta.title },
         { hid: 'og:description', name: 'og:description', content: this.currentPost.meta.description || this.currentPost.firstSentence },

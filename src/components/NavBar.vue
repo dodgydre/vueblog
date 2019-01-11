@@ -1,6 +1,7 @@
 <template>
   <nav class="nav">
     <div class="nav-inner" v-if="pages != null">
+      <!-- List POSTS first -->
       <router-link
         :to="{ path: '/'}"
         class="nav-link"
@@ -12,6 +13,8 @@
           POSTS
         </span>
       </router-link>
+
+      <!-- List any PAGES next -->
       <router-link
         :to="{ path: '/' + page.id }"
         class="nav-link"

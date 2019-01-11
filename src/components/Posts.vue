@@ -37,7 +37,7 @@ export default {
       }
     },
     highlight: function () {
-      console.log('wrong')
+      //
     }
   },
   computed: {
@@ -45,7 +45,7 @@ export default {
   },
   metaInfo () {
     return {
-      title: 'Home',
+      title: 'Andreas Georghiou - Home',
       meta: [
         { hid: 'og:title', name: 'og:title', content: 'Vuejs Blog Home' },
         { hid: 'og:description', name: 'og:description', content: 'A simple blog written in vue.js using github gists.' },

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import showdown from 'showdown'
 
 // (https://twitter.com/8bitfootball/status/1008450650936659974)
@@ -7,7 +8,7 @@ showdown.extension("twitter", function() {
   return [
     {
       type: 'lang',
-      filter: function(text, converter, options) {
+      filter: function(text) {
         var mainRegex = new RegExp("(@tweet\(.*\))", "gm");
         text = text.replace(mainRegex, function(match, content) {
           let replacedContent = content.match(/(?:@tweet\()(.*)(?:\))/)[1];
@@ -28,7 +29,7 @@ showdown.extension("youtube", function() {
   return [
     {
       type: 'lang',
-      filter: function(text, converter, options) {
+      filter: function(text) {
         var mainRegex = new RegExp("(@youtube\(.*\))", "gm");
         text = text.replace(mainRegex, function(match, content) {
           let identifier = content.match(/\(([A-Za-z0-9_\-]*)/)[1]
@@ -57,7 +58,7 @@ export default {
       .split(/\+\+\+\n/)[1]
       .trim()
       .split(/\n/)
-      .forEach((item, index, object) => {
+      .forEach((item) => {
         meta[item.split(':')[0]] = item.split(':')[1].trim()
       })
 

@@ -38,7 +38,6 @@ export default {
     async fetchData () {
       this.loading = true
       try {
-        console.log(this.$route.params.page_id)
         await this.$store.dispatch('FETCH_PAGE', this.$route.params.page_id)
       } catch (e) {
         this.error = { statusCode: 404, message: e.message }
@@ -57,10 +56,20 @@ export default {
         hljs.highlightBlock(el)
       })
     }
+
+    const tweets = [...document.getElementsByClassName('tweet')]
+        
+    tweets.forEach(tweet => {
+      let identifier = tweet.id
+      window.twttr.widgets.createTweet(
+        identifier,
+        document.getElementById(`embed_${identifier}`),
+      )
+    })
   },
   metaInfo () {
     return {
-      title: this.loading ? 'Loading ...' : this.$store.state.currentPage.meta.title,
+      title: this.loading ? 'Loading ...' : 'Andreas Georghiou - ' + this.$store.state.currentPage.meta.title,
       meta: this.loading ? [] : [
         { hid: 'og:title', name: 'og:title', content: this.currentPage.meta.title },
         { hid: 'og:description', name: 'og:description', content: this.currentPage.meta.description || this.currentPage.firstSentence },

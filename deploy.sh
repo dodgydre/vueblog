@@ -20,6 +20,8 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:dodgydre/vueblog.git master:gh-pages
+# git push -f git@github.com:dodgydre/vueblog.git master:gh-pages
+git remote add dreamhost ssh://ag_blog@kili.dreamhost.com/~/blog.andreasgeorghiou.com.git
+git push -f dreamhost master
 
 cd -

@@ -151,6 +151,7 @@ table {
 nav {
   padding: 1rem 0;
   max-width: 50rem;
+  text-align: right;
 }
 
 .nav-inner {
@@ -161,9 +162,11 @@ nav {
 }
 
 .nav-link {
+  font-size: $size-unit*1.1;
   padding-right: $size-unit;
 }
 
 .current {
   color: $color-active-nav;
+  font-style: italic;
 }
