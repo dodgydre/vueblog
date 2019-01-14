@@ -14,6 +14,21 @@
         </span>
       </router-link>
 
+      <div class="dropdown">
+        <span class="tags">(tags)</span>
+        <div class="dropdown-content">
+          <router-link
+            v-for="tag in tags"
+            :key="tag"
+            :to="{path: '/posts/tag/' + tag}"
+            class="dropdown-nav-link"
+          >
+            <span>{{ tag }}</span>
+          </router-link>
+
+        </div>
+      </div>
+
       <!-- List any PAGES next -->
       <router-link
         :to="{ path: '/' + page.id }"
@@ -38,12 +53,17 @@ import { EventBus } from '../event-bus'
 export default {
   data () {
     return {
-      pages: null
+      pages: null,
+      tags: null,
     }
   },
-  mounted () {
-    EventBus.$on('menu-updated', (pages) => {
+  created () {
+    EventBus.$on('menu-updated', pages => {
       this.pages = pages
+    })
+
+    EventBus.$on('tags-updated', tags => {
+      this.tags = tags
     })
   },
   methods: {

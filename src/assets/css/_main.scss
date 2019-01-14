@@ -163,10 +163,42 @@ nav {
 
 .nav-link {
   font-size: $size-unit*1.1;
-  padding-right: $size-unit;
+  padding-left: $size-unit;
 }
 
 .current {
-  color: $color-active-nav;
-  font-style: italic;
+    color: $color-active-nav;
+    font-style: italic;
+}
+
+.dropdown {
+    //position: relative;
+    display: inline-block;
+}
+.dropdown-nav-link {
+    display: block;
+    font-size: $size-unit*0.9;
+    padding-left: 0;
+    padding-top: 10px;
+    overflow-y: scroll;
+}
+
+.tags {
+    font-size: small;
+    font-style: italic;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

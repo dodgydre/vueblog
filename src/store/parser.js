@@ -13,10 +13,10 @@ showdown.extension("twitter", function() {
         text = text.replace(mainRegex, function(match, content) {
           let replacedContent = content.match(/(?:@tweet\()(.*)(?:\))/)[1];
           let identifier = content.match(/status\/([0-9]*)/)[1];
-          
+
           //let embedUrl = `https://publish.twitter.com/oembed?url=${identifier}`;
           return `<div class="tweet" id="${identifier}" style="display:none">${replacedContent}</div><div class="media media--embed" id="embed_${identifier}"></div>`;
-          
+
         });
         return text;
       }
@@ -41,8 +41,6 @@ showdown.extension("youtube", function() {
   ]
 });
 
-
-
 const converter = new showdown.Converter({
   tables: true,
   parseImgDimensions: true,
@@ -53,14 +51,22 @@ export default {
   parseItem (raw, split) {
     // meta section
     let meta = {}
-    //console.log(raw.content)
+
     raw.content
       .split(/\+\+\+\n/)[1]
       .trim()
       .split(/\n/)
       .forEach((item) => {
         meta[item.split(':')[0]] = item.split(':')[1].trim()
-      })
+      }
+    )
+
+    // Convert tags to an array
+    if(meta.tags) {
+      meta.tags = meta.tags.split(',').map(Function.prototype.call, String.prototype.trim)
+    } else {
+      meta.tags = []
+    }
 
     // content section
     let content = converter.makeHtml(raw.content.split(/\+\+\+\n/)[2])
@@ -70,8 +76,6 @@ export default {
     const id = raw.filename.split(split)[0]
     content = content.replace(/<pre>/g, '<pre v-highlightjs>')
 
-    
-    
     const firstSentence = content.slice(3).split('.')[0] + '.'
 
     return {
@@ -87,12 +91,18 @@ export default {
     return this.parseItem(rawHtml, '.page.md')
   },
 
-  parsePosts (files) {
+  parsePosts (files, tags) {
     return files
-      .filter(file => file.filename.includes('post.md'))
-      .map(raw => this.parseItem(raw, '.post'))
-      .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date))
-      .filter(file => file.meta.published === 'true')
+    .filter(file => file.filename.includes('post.md')) // only posts, not pages
+    .map(raw => this.parseItem(raw, '.post')) // parse to get the metas
+    .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date)) // sort by date
+    .filter(file => {
+      if(tags) {
+        return file.meta.tags.includes(tags)
+      }
+      return true
+    }) // grab only those with correct tag
+    .filter(file => file.meta.published === 'true') // only get published ones
   },
 
   parsePages (files) {

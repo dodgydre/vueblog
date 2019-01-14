@@ -12,7 +12,15 @@ export default new Router({
   mode: 'history',
   base: process.env.NODE_ENV === 'development' ? '/' : '/',
   routes: [
-    { path: '/posts', redirect: '/' },
+    {
+      path: '/posts/tag/:tag_id',
+      name: 'Tagged Posts',
+      component: Posts
+    },
+    {
+      path: '/posts',
+      redirect: '/'
+    },
     {
       path: '/',
       name: 'Posts',

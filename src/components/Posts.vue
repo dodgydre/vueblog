@@ -25,9 +25,17 @@ export default {
   created () {
     this.fetchData()
   },
+  // Need to be able to catch the change in the tag filter...
   methods: {
     async fetchData () {
       this.loading = true
+
+      if(this.$route.params.tag_id) {
+        this.$store.dispatch('FETCH_TAGS_FILTER', this.$route.params.tag_id)
+      } else {
+        this.$store.dispatch('FETCH_TAGS_FILTER', '')
+      }
+
       try {
         await this.$store.dispatch('FETCH_POSTS')
       } catch (e) {
@@ -36,20 +44,17 @@ export default {
         this.loading = false
       }
     },
-    highlight: function () {
-      //
-    }
   },
   computed: {
-    ...mapState(['posts'])
+    ...mapState(['posts', 'tags', 'tags_filter'])
   },
   metaInfo () {
     return {
       title: 'Andreas Georghiou - Home',
       meta: [
-        { hid: 'og:title', name: 'og:title', content: 'Vuejs Blog Home' },
-        { hid: 'og:description', name: 'og:description', content: 'A simple blog written in vue.js using github gists.' },
-        { hid: 'description', name: 'description', content: 'A simple blog written in vue.js using github gists.' }
+        { hid: 'og:title', name: 'og:title', content: 'Andreas Georghiou - Home' },
+        { hid: 'og:description', name: 'og:description', content: 'Some random musings.' },
+        { hid: 'description', name: 'description', content: 'Some random musings.' }
       ]
     }
   }

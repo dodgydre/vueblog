@@ -4,6 +4,10 @@ const apiUrl = config.apiUrl
 const gistId = config.gistId
 
 export default {
+  FETCH_TAGS_FILTER (context, tags) {
+    context.commit('SET_TAGS_FILTER', tags)
+  },
+
   async FETCH_GIST (context) {
     const pages = []
     const posts = []
@@ -52,6 +56,15 @@ export default {
     if (context.state.pages === undefined) {
       await context.dispatch('FETCH_GIST')
     }
+
+    let tags = []
+    context.state.posts.forEach(post => {
+      post.meta.tags.forEach(tag => {
+        tags.push(tag)
+      })
+    })
+    tags = [...new Set(tags)]
+    context.commit('SET_TAGS', tags)
   },
 
   async FETCH_POST (context, id) {
