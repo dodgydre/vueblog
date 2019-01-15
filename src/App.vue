@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <router-view/>
+      <router-view/>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar'
+
+const default_layout = 'default'
 
 export default {
   name: 'App',
@@ -14,7 +16,7 @@ export default {
   metaInfo: {
     title: 'Default Title',
     titleTemplate: '%s'
-  }
+  },
 }
 </script>
 
