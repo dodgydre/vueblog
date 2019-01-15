@@ -4,10 +4,6 @@ const apiUrl = config.apiUrl
 const gistId = config.gistId
 
 export default {
-  FETCH_TAGS_FILTER (context, tags) {
-    context.commit('SET_TAGS_FILTER', tags)
-  },
-
   async FETCH_GIST (context) {
     const pages = []
     const posts = []

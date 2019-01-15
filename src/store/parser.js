@@ -91,17 +91,11 @@ export default {
     return this.parseItem(rawHtml, '.page.md')
   },
 
-  parsePosts (files, tags) {
+  parsePosts (files) {
     return files
     .filter(file => file.filename.includes('post.md')) // only posts, not pages
     .map(raw => this.parseItem(raw, '.post')) // parse to get the metas
     .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date)) // sort by date
-    .filter(file => {
-      if(tags) {
-        return file.meta.tags.includes(tags)
-      }
-      return true
-    }) // grab only those with correct tag
     .filter(file => file.meta.published === 'true') // only get published ones
   },
 

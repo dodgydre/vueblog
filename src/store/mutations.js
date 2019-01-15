@@ -6,10 +6,6 @@ export default {
     state.gist = gist
   },
 
-  SET_TAGS_FILTER (state, tags) {
-    state.tags_filter = tags
-  },
-
   SET_TAGS (state, tags) {
     state.tags = tags
     EventBus.$emit('tags-updated', tags)
@@ -20,7 +16,7 @@ export default {
   },
 
   SET_POSTS (state, posts) {
-    state.posts = parser.parsePosts(posts, state.tags)
+    state.posts = parser.parsePosts(posts)
   },
 
   SET_CURRENT_POST (state, post) {

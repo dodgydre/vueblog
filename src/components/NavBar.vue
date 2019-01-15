@@ -18,6 +18,12 @@
         <span class="tags">(tags)</span>
         <div class="dropdown-content">
           <router-link
+            :to="{path: '/posts'}"
+            class="dropdown-nav-link"
+          >
+            all posts
+          </router-link>
+          <router-link
             v-for="tag in tags"
             :key="tag"
             :to="{path: '/posts/tag/' + tag}"

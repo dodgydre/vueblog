@@ -2,7 +2,7 @@
   <main>
     <div v-if="loading"></div>
 
-    <div v-else v-for="post in posts" :key="post.id">
+    <div v-else v-for="post in filtered_posts" :key="post.id">
       <router-link :to="{ path: 'posts/' + post.id }">
         <h1 v-html="post.meta.title"></h1>
         <div class="date">{{ post.meta.date | toShortDate }}</div>
@@ -29,13 +29,6 @@ export default {
   methods: {
     async fetchData () {
       this.loading = true
-
-      if(this.$route.params.tag_id) {
-        this.$store.dispatch('FETCH_TAGS_FILTER', this.$route.params.tag_id)
-      } else {
-        this.$store.dispatch('FETCH_TAGS_FILTER', '')
-      }
-
       try {
         await this.$store.dispatch('FETCH_POSTS')
       } catch (e) {
@@ -46,7 +39,15 @@ export default {
     },
   },
   computed: {
-    ...mapState(['posts', 'tags', 'tags_filter'])
+    ...mapState(['posts', 'tags', 'tags_filter']),
+    filtered_posts() {
+      return this.posts.filter(file => {
+        if(this.$route.params.tag_id) {
+          return file.meta.tags.includes(this.$route.params.tag_id)
+        }
+        return true
+      }) // grab only those with correct tag
+    }
   },
   metaInfo () {
     return {
