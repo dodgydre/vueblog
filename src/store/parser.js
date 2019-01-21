@@ -33,7 +33,7 @@ showdown.extension("youtube", function() {
         var mainRegex = new RegExp("(@youtube\(.*\))", "gm");
         text = text.replace(mainRegex, function(match, content) {
           let identifier = content.match(/\(([A-Za-z0-9_\-]*)/)[1]
-          return `<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${identifier}?autoplay=1" frameborder="0"></iframe>`;
+          return `<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${identifier}?autoplay=1&rel=0&showinfo=0" frameborder="0"></iframe>`;
         });
         return text;
       }
