@@ -203,3 +203,12 @@ nav {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.more,
+.more:hover,
+.more:visited,
+.more:active {
+    color: $color-font;
+    text-decoration: none;
+    background-color: $color-link-background;
+}

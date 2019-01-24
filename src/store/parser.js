@@ -68,22 +68,29 @@ export default {
       meta.tags = []
     }
 
-    // content section
-    let content = converter.makeHtml(raw.content.split(/\+\+\+\n/)[2])
-
     const segment = raw.filename.split(split)[0]
     const path = `/post/${segment}`
     const id = raw.filename.split(split)[0]
-    content = content.replace(/<pre>/g, '<pre v-highlightjs>')
+    let firstSentence = ''
+    let content = ''
 
-    const firstSentence = content.slice(3).split('.')[0] + ' ... (click for more)'
+    if (!meta.type || meta.type === 'post') {
+      // content section
+      // convert MD to HTML
+      content = converter.makeHtml(raw.content.split(/\+\+\+\n/)[2])
+      // Add highlightjs to pre-tags
+      content = content.replace(/<pre>/g, '<pre v-highlightjs>')
+  
+      // slice out first sentence - TODO: This requires no links 
+      firstSentence = content.slice(3).split(/\.\s/)[0] + '. <span class="more">(click for more)</span>'
+    }
 
     return {
       id,
       content,
       path,
       meta,
-      firstSentence
+      firstSentence,
     }
   },
 
