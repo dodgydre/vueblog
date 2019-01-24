@@ -1,25 +1,41 @@
 <template>
-  <main>
-    <div class="content">
-      <h1>{{ currentPost.meta.title }}</h1>
-      <p>
-        <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDate }}</time>
-      </p>
-      <div v-html="currentPost.content"></div>
-      <!-- <div id="temp"></div> -->
-    </div>
-  </main>
+  <div class="content">
+    <image-modal :img="img" v-if="img.src !== null" />
+    <h1>{{ currentPost.meta.title }}</h1>
+    <p>
+      <time v-if="currentPost.meta.date">{{ currentPost.meta.date | toLongDate }}</time>
+    </p>
+    <div v-html="currentPost.content"></div>
+    <!-- <div id="temp"></div> -->
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { EventBus } from '../../../event-bus'
 import hljs from 'highlight.js/lib/highlight'
+import imageModal from '../../ImageModal'
 
 export default {
   name: 'Posts',
+  components: { imageModal },
+  data() {
+    return {
+      img: {
+        src: null,
+        alt: null,
+      },
+    }
+  },
   watch: {
     // call again the method if the route changes
     '$route': 'fetchData'
+  },
+  created() {
+    EventBus.$on('image-modal-closed', () => {
+      this.img.src = null
+      this.img.alt = null
+    })
   },
   mounted() {
     ['javascript', 'css', 'xml', 'php'].forEach((langName) => {
@@ -27,9 +43,13 @@ export default {
           hljs.registerLanguage(langName, langModule)
     })
     // Add onclick to images.
-    // TODO: Add a modal for showing larger images
     const imgs = [...document.querySelectorAll('img')]
-    imgs.forEach(img => { img.onclick = () => { console.log(img.alt)}})
+    imgs.forEach(img => { 
+      img.onclick = () => { 
+        this.img.alt = img.alt
+        this.img.src = img.src
+      }
+    })
 
     const preTags = [...document.querySelectorAll('pre')]
     if (typeof hljs === 'object') {

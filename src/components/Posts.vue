@@ -25,7 +25,8 @@ export default {
   created () {
     this.fetchData()
   },
-  // Need to be able to catch the change in the tag filter...
+  // TODO: is tag filter working properly?
+  // TODO: May be broken n the Post.vue when looking at specific post
   methods: {
     async fetchData () {
       this.loading = true
@@ -40,13 +41,15 @@ export default {
   },
   computed: {
     ...mapState(['posts', 'tags', 'tags_filter']),
+    
+    // grab only those with correct tag
     filtered_posts() {
       return this.posts.filter(file => {
         if(this.$route.params.tag_id) {
           return file.meta.tags.includes(this.$route.params.tag_id)
         }
         return true
-      }) // grab only those with correct tag
+      }) 
     }
   },
   metaInfo () {

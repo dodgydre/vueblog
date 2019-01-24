@@ -1,0 +1,59 @@
+<template>
+    <div class="image-modal" v-if="img.src !== null" @click="close">
+        <span class="close" @click="close">&times;</span>
+        <img :src="img.src" :alt="img.alt" class="modal-content">
+    </div>
+</template>
+
+<script>
+import { EventBus } from '../event-bus'
+
+export default {
+    props: [
+        'img'
+    ],
+    methods: {
+        close() {
+            EventBus.$emit('image-modal-closed')
+        }
+    }
+}
+</script>
+
+<style scoped>
+.image-modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
