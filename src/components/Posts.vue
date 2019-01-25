@@ -26,7 +26,7 @@ export default {
     this.fetchData()
   },
   // TODO: is tag filter working properly?
-  // TODO: May be broken n the Post.vue when looking at specific post
+  // TODO: May be broken in the Post.vue when looking at specific post
   methods: {
     async fetchData () {
       this.loading = true
