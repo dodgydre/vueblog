@@ -51,14 +51,13 @@ export default {
   parseItem (raw, split) {
     // meta section
     let meta = {}
-
     raw.content
-      .split(/\+\+\+\n/)[1]
+      .split(/\+\+\+/)[1]
       .trim()
       .split(/\n/)
       .forEach((item) => {
-        meta[item.split(':')[0]] = item.split(':')[1].trim()
-      }
+           meta[item.split(':')[0]] = item.split(':')[1].trim()
+        }
     )
 
     // Convert tags to an array
@@ -68,7 +67,6 @@ export default {
       meta.tags = []
     }
 
-    
     const segment = raw.filename.split(split)[0]
     const path = `/post/${segment}`
     const id = raw.filename.split(split)[0]
@@ -78,12 +76,12 @@ export default {
     if (!meta.type || meta.type === 'post') {
       // content section
       // convert MD to HTML
-      content = converter.makeHtml(raw.content.split(/\+\+\+\n/)[2])
+      content = converter.makeHtml(raw.content.split(/\+\+\+/)[2])
       // Add highlightjs to pre-tags
       content = content.replace(/<pre>/g, '<pre v-highlightjs>')
-  
+
       // slice out first sentence
-      // NOTE: This requires no links 
+      // NOTE: This requires no links
       firstSentence = content.slice(3).split(/\.\s/)[0] + '. <span class="more">(click for more)</span>'
     }
 
@@ -102,10 +100,10 @@ export default {
 
   parsePosts (files) {
     return files
-    .filter(file => file.filename.includes('post.md')) // only posts, not pages
-    .map(raw => this.parseItem(raw, '.post')) // parse to get the metas
-    .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date)) // sort by date
-    .filter(file => file.meta.published === 'true') // only get published ones
+      .filter(file => file.filename.includes('post.md')) // only posts, not pages
+      .map(raw => this.parseItem(raw, '.post.md')) // parse to get the metas
+      .sort((current, other) => new Date(other.meta.date) - new Date(current.meta.date)) // sort by date
+      .filter(file => file.meta.published === 'true') // only get published ones
   },
 
   parsePages (files) {

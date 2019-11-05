@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ...mapState(['posts', 'tags', 'tags_filter']),
-    
+
     // grab only those with correct tag
     filtered_posts() {
       return this.posts.filter(file => {
@@ -49,7 +49,7 @@ export default {
           return file.meta.tags.includes(this.$route.params.tag_id)
         }
         return true
-      }) 
+      })
     }
   },
   metaInfo () {
